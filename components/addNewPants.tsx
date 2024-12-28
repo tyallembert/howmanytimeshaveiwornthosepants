@@ -42,8 +42,14 @@ const AddPantsForm = ({ user }: { user: null | User }) => {
         setImage(null);
         setSuccess("Pants added successfully!");
       }
-    } catch (err) {
-      setError("Failed to add pants. Please try again.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to add pants. Please try again.");
+        console.error("Error adding pants:", err);
+      } else {
+        setError("An unknown error occurred.");
+        console.error("Unknown error adding pants:", err);
+      }
     }
   };
 
@@ -55,11 +61,11 @@ const AddPantsForm = ({ user }: { user: null | User }) => {
         Add Pants
     </button>
   ) : (
-    <div className="w-1/2 rounded-xl border shadow p-3 bg-card">
+    <div className="w-1/2 rounded-xl border shadow p-3 bg-secondary">
       <h2>Add New Pair of Pants</h2>
       <form onSubmit={handleAddPants} className="space-y-4">
         <div>
-          <label className="block text-sm text-gray-700">Name</label>
+          <label className="block text-sm text-white">Name</label>
           <input
             type="text"
             value={name}
@@ -69,7 +75,7 @@ const AddPantsForm = ({ user }: { user: null | User }) => {
           />
         </div>
         <div>
-          <label className="block text-sm text-gray-700">Upload Image</label>
+          <label className="block text-sm text-white">Upload Image</label>
           <input
             type="file"
             onChange={(e) =>

@@ -41,9 +41,14 @@ export default function Login() {
       );
       console.log("User logged in:", userCredential.user);
       router.push("/");
-    } catch (err: any) {
-      setError(err.message || "Failed to log in");
-      console.error("Error logging in:", err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to log in");
+        console.error("Error logging in:", err);
+      } else {
+        setError("An unknown error occurred.");
+        console.error("Unknown error logging in:", err);
+      }
     }
   };
 
@@ -56,9 +61,14 @@ export default function Login() {
       const user = result.user;
       console.log("Google login user:", user);
       router.push("/");
-    } catch (err: any) {
-      setError(err.message || "Failed to log in with Google");
-      console.error("Error logging in with Google:", err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to log in with Google");
+        console.error("Error logging in with Google:", err);
+      } else {
+        setError("An unknown error occurred.");
+        console.error("Unknown error logging in:", err);
+      }
     }
   };
 

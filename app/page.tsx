@@ -25,7 +25,7 @@ export default function Home() {
   }, [router]);
 
   return (
-    <main className="relative flex flex-col gap-3 w-full min-h-screen bg-secondary">
+    <main className="relative flex flex-col gap-3 w-full min-h-screen bg-background">
       <Navigation user={user}/>
       <section className='flex flex-col gap-3 p-5 h-screen'>
         <AddPantsForm user={user} />

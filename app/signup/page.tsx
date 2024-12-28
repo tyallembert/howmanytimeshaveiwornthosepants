@@ -37,9 +37,14 @@ export default function Signup() {
       );
       setSuccess('Account created successfully! Welcome!');
       console.log('User signed up:', userCredential.user);
-    } catch (err: any) {
-      setError(err.message || 'Failed to create account');
-      console.error('Error signing up:', err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to log in");
+        console.error("Error logging in:", err);
+      } else {
+        setError("An unknown error occurred.");
+        console.error("Unknown error logging in:", err);
+      }
     }
   };
 
@@ -53,9 +58,14 @@ export default function Signup() {
       const user = result.user;
       setSuccess('Signed in with Google successfully!');
       console.log('Google sign-in user:', user);
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in with Google');
-      console.error('Error signing in with Google:', err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to sign in with Google");
+        console.error("Error signing in with Google:", err);
+      } else {
+        setError("An unknown error occurred.");
+        console.error("Unknown error logging in:", err);
+      }
     }
   };
 
